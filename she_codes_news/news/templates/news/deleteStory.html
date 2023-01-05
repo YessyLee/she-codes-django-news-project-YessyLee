@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Delete Story{% endblock %}
+{% block content %}
+
+<h2>Delete Post</21>
+<br/>
+<h3>Delete: {{ newsstory.title }}</h3>
+<br/>
+<form action="" method="post">
+    {% csrf_token %}
+    <strong>Are you sure?</strong>
+    <br/>
+    <br/>
+    <input type="submit" value="Yes, Delete Story!">
+</form>
+
+{% endblock %}

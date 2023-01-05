@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+<!-- STYLING INCOMPLETE - YESSY TO DO, some of the linebreak didn't work-->
+
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="{% static 'news/styles.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'she_codes_news/styles.css' %}">
+{% endblock %} 
+
+{% block content %}
+
+<div class="login_form">
+  <h5 class="login">Welcome to your profile page, {{ customuser.username }}!</h5> 
+</div>
+
+<div id="user_profile"> 
+  <div class="user_profile">
+    <img src="{{ customuser.avatar }}" alt="user avatar">
+  </div>
+
+  <div class="user_profile">
+      
+    <h3>Name: {{ customuser.first_name }} {{ customuser.last_name }}</h3><br\>
+    <h4>Location: {{ customuser.location }}</h4><br\>
+
+    <h3>About {{ customuser.username }}</h3>
+    <p>{{ customuser.bio }}</p> <br\>
+    
+    {% if request.user == customuser %}
+    <button id="login_button" >
+      <a href="{% url 'users:editProfile' %}">Edit Profile</a></button> <br\>
+
+ 
+    <h5>You can write new stories to be shared with other users here:</h5><br\>
+    <button id="login_button">
+      <a href="{% url 'news:newStory' %}">Write New Story</a></button>
+  </div>
+    {% else %}
+    {% endif %}
+</div>
+  
+<div class="login_form">
+  <h5 class="login">{{ customuser.username }}&#700;s Story History:</h5>
+</div>
+ 
+<div id="user_profile">
+  <div class="user_profile">
+    {% if customuser.newsstory_set.all %} 
+      {% for story in customuser.newsstory_set.all %} 
+        {% include "news/storyCard.html" with story=story position=forloop.counter %}
+        {% endfor %}
+    {% else %}
+      <p>No stories are available</p>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

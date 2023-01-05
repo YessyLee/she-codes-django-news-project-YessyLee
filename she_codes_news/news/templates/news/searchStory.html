@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="
+styles.css' %}">
+{% endblock %}
+
+{% block content %}
+
+    <h2>Your search result for: "{{ searched }}" category</h2>
+
+    <div>
+    {% if searched %}
+        {% for story in stories %}
+            {% include "./storyCard.html" with stories=stories position=forloop.counter %}
+        {% endfor %}
+    {% else %}
+        <p>No stories are available.</p>
+    {% endif %}
+
+    </div>
+
+
+{% endblock %}

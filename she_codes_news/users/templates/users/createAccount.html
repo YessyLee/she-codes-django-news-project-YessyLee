@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="login_form">
+
+	<h2 class="login">Sign Up... and be an author!</h2><br/>
+
+	<form method="post">
+	  {% csrf_token %}
+	 
+		{% for field in form %}
+		<p>
+		  {{ field.label_tag }}<br/>
+		  {{ field }}<br/>
+		  {% if field.help_text %}
+			<small style="color: grey">{{ field.help_text }}</small>
+		  {% endif %}
+		  {% for error in field.errors %}
+			<p style="color: red">{{ error }}</p>
+		  {% endfor %}
+		</p>
+	  	{% endfor %}
+		<br/>
+	  	<button type="submit">Create Account</button>
+	</form>
+</div>
+
+<div>
+	<br/>
+	<center><h5>
+		Already have an account? <a href="{% url 'login' %}">Sign in here!</a>
+	</h5></center>
+	<br/>
+	<br/>
+	<br/>
+</div>
+{% endblock %}

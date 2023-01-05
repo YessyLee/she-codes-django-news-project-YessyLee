@@ -1,0 +1,24 @@
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block content %}
+
+<!-- NO STYLING YET, YESSY TO DO NEXT -->
+<div>
+    <h1>View Authors</h2>
+</div>
+
+<div>
+
+    {% if authors %} 
+        {% for author in authors %} 
+        {% include "./authorCard.html" with authors=author %} 
+    {% endfor %} 
+        {% else %}
+    <p>No Authors are Available</p>
+    {% endif %}
+</div>
+
+</div>
+
+{% endblock %}

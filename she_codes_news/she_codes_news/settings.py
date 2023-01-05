@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(jkv!qs0&8mc=ftuod-kzmdni25#vl+s!i@f!yk0*@tuvm16x+'
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    '(jkv!qs0&8mc=ftuod-kzmdni25#vl+s!i@f!yk0*@tuvm16x+'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -28,7 +32,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
-# Application definition
+# Application definition - see tutorial 2 for explanation
 
 INSTALLED_APPS = [
     'news.apps.NewsConfig',
@@ -38,7 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'django_social_share',
     'users.apps.UsersConfig',
+    'django.forms'
 ]
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -71,6 +77,7 @@ TEMPLATES = [
     },
 ]
 
+FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
 WSGI_APPLICATION = 'she_codes_news.wsgi.application'
 
 
@@ -129,3 +136,7 @@ STATICFILES_DIRS = (
 )
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#Add login and Logout redirection
+LOGIN_REDIRECT_URL = 'news:index'
+LOGOUT_REDIRECT_URL = 'news:index'

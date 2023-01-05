@@ -9,11 +9,47 @@
 
 <div id="story-wrapper">
     <h2>{{ story.title }}</h2>
-    <h4>{{ story.author }}</h4>
+    <h4 id="story-author"><a href="{% url 'users:profile' story.author.id %}">Written by: {{ story.author }} </a></h4>
+
+    {% if request.user == story.author %}  
+    (<small><a href="{% url 'news:updateStory' story.id %}">Edit Story</a> | <a href="{% url 'news:deleteStory' story.id %}">Delete Story</a></small>)
+    {% else %}
+    {% endif %}
+    
     <div id="story-content">
-        <img src="{% static '/news/images/placeholder-5.jpg' %}">
+        <img src="{{ story.image_url }}">
         {{ story.content|linebreaks }}
+
+        <p>Love this story? Share it on
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"> Facebook </a>
+            
+        <a href="https://twitter.com/home?status={{ share_string }}%20{{ request.build_absolute_uri }}"> Twitter </a>
+            
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}"> Linkedin </a></p>
+
+        <p>Category/Tag: <a href="{% url 'news:category' story.category %}">{{ story.category }}</a></p>
+
+        {{ instance.content|linebreaks }}<br/>
     </div>
+</div>
+
+<div id="comment-wrapper">
+    <h4><a href="{% url 'news:addComment' story.id %}">Add a 
+        comment:</a></h4>
+    
+        <form method="POST" action="{{ form_action }}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Add Comment</button>
+        </form>
+    </div>
+
+    <ul>
+    {% for comment in story.comments.all %}
+        <li>{{comment.author.username}} | {{comment.created_at}}: {{ comment.content }}</li>
+    {% endfor %}
+    </ul>
+
 </div>
 
 {% endblock %}

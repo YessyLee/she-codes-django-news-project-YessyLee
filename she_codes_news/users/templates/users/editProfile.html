@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- STYLING INCOMPLETE - YESSY TO DO -->
+
+<div class="login_form">
+  <h5 class="login">Edit Your Profile, {{ user.username }}!</h3>
+</div>
+
+<div>
+<p>Update your profile picture and some information about yourself!</p>
+</br>
+
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <p>
+        {{ field.label_tag }}<br>
+        {{ field }}
+        {% if field.help_text %}
+          <small style="color: grey">{{ field.help_text }}</small>
+        {% endif %}
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+      </p>
+    {% endfor %}
+    <button id="login_button" type="submit" name="confirm">Confirm Profile Info</button>
+    </br>
+  </form>
+</div>
+
+{% endblock %}

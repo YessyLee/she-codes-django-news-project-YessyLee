@@ -1,6 +1,21 @@
 <nav>
-    <a href="{% url 'news:index' %}">Home</a>
-    <a href="#">username</a>
-    <a href="#">Logout</a>
-    <a href="#">Login</a>
+  <ul class="nav__links">
+    <li><a href="{% url 'news:index' %}">Home</a></li>
+      {% if request.user.is_authenticated %}
+        <li><a href="{% url 'users:profile' request.user.id %}">Welcome, {{ user.username }}</a></li>
+        <li><a href="{% url 'news:newStory' %}">Write New Story</a></li>
+        <li><a href="{% url 'logout' %}">Logout</a></li>
+      {% else %}
+        <li><a href="{% url 'login' %}">Login</a></li>
+        <li><a href="{% url 'users:createAccount' %}">Sign Up</a></li>
+      
+      {% endif %}
+
+  </ul>
 </nav>
+<form id="form_nav" method=POST action="{% url 'news:searchstory' %}">
+{% csrf_token %}
+
+<input type="search" placeholder="Search story category..." name="searched"><button id="nav_button" type="submit">Search</button>
+</form>
+

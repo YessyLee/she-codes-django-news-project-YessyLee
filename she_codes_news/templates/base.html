@@ -8,7 +8,8 @@
         <title>She Codes News</title>
         <meta name="description" content="">
         <meta name="author" content="Hayley van Waas">
-        <link href="https://fonts.googleapis.com/css?family=Manjari&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,800;1,200;1,400&display=swap" rel="stylesheet"> -->
         <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
             {% block stylesheets %}{% endblock %}
     </head>
@@ -17,8 +18,9 @@
     <header>
         <div id="header-text">
             <a id="header-link" href="{% url 'news:index' %}">
-            h1>She {Codes} News</h1>
+            <h2 id="nav_logo_title">She <span>{Codes}</span> News</h2>
             </a>
+        <!-- <img class="logo" src="SCN_logo.png" alt="logo"> -->
         </div>
         {% include './nav.html' %}
             <!-- include nav here -->
@@ -26,5 +28,13 @@
 
     {% block content %}{% endblock %}
         <!-- content blocks here -->
+
+    <footer>
+        <footer class="site-footer">
+        <div>
+        <p class="copyright-text">Copyright &#169 <script>document.write(new Date().getFullYear())</script> She {Codes} News. All rights reserved.</p>
+        </div>
+    </footer>
+    
     </body>
 </html>

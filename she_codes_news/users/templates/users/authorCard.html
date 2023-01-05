@@ -1,0 +1,15 @@
+<!-- NO STYLING YET, YESSY TO DO NEXT -->
+<div>
+    {% if author.avatar %}
+    <a href="{% url 'users:profile' author.id %}"><img src="{{ author.avatar }}" alt="avatar"></a>
+    
+        {% else %}
+        <img src="https://afcm.ca/wp-content/uploads/2018/06/no-photo.png"/>
+        {% endif %}
+
+    <div>
+        <h3><a href="{% url 'users:profile' author.id %}">{{ author.username }}</h3>
+        <h4>{{ author.location }}</h4>
+        <h4>{{ author.bio }}</h4>
+    </div>
+</div>
