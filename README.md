@@ -1,3 +1,3 @@
-# Plus Resources: Django Project Starter
+# Yessy Django Project Submission
 
-Starter code for the Plus Django project.
+Styling are incomplete, still working on it.
